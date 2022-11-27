@@ -13,7 +13,6 @@ export function AsciiDisplay({
   centerStringText='',
   centerStringPos={x:0, y:0},
   lineNumberCutOff=0,
-  imageSample: imageSampleURL,
 }) {
 
   const [windowSize, setWindowSize] = useState(getWindowSize());
@@ -69,81 +68,91 @@ export function AsciiDisplay({
       clearInterval(interval);
     };
   }, []);
-  let img = null;
-  if (imageSampleURL) {
-    loadImage(imageSampleURL).then(image => {img = image;}).catch(err => {
-
-    });
-  }
-
   let rows = [];
 
-  if (img || !imageSampleURL) {
-    for (let y = 0; y < numberOfLines; y++) {
-      let values = "";
-      for (let x = 0; x < lineLength; x++) {
-        //time/140
-        let centrex = lineLength/2;
-        let centrey = numberOfLines/2;
-        
-        let data = cellFunction(centrex, centrey, x, y, time);
-        var value = 1
-        if (doPerlin) {
-          value = quickNoise.noise((data.newX+centrex+offset)/resolution, (data.newY+centrey+offset)/resolution, 0);
-        }else if (imageSampleURL) {
-          
-          value = GetImagePixelData(img)[data.newY][data.newX];
-        }
+  for (let y = 0; y < numberOfLines; y++) {
+    let values = "";
+    for (let x = 0; x < lineLength; x++) {
+      //time/140
+      let centrex = lineLength/2;
+      let centrey = numberOfLines/2;
+      
+      let data = cellFunction(centrex, centrey, x, y, time);
+      var value = 1
+      if (doPerlin) {
+        value = quickNoise.noise((data.newX+centrex+offset)/resolution, (data.newY+centrey+offset)/resolution, 0);
+      }
 
-        let char = RangeToCustomAsciiCharacters(0,1,(value+1)/2," ,-~:;  =*#$@     ");
-        if (char == undefined) {
-          char = ' ';
-        }
-        values += char;
+      let char = RangeToCustomAsciiCharacters(0,1,(value+1)/2," ,-~:;  =*#$@     ");
+      if (char == undefined) {
+        char = ' ';
       }
-      rows.push(values);
+      values += char;
     }
-  
-    //Add fixed strings
-    fixedStrings.forEach(string => {
-      if (fixedStringCoords.length == 0) {
-        return;
+    rows.push(values);
+  }
+
+  //Add fixed strings
+  fixedStrings.forEach(string => {
+    if (fixedStringCoords.length == 0) {
+      return;
+    }
+    let {x, y} = fixedStringCoords[fixedStrings.indexOf(string)];
+    let currStr = rows[y];
+    if (currStr == undefined) {
+      return;
+    }
+    //Replace all non-space characters with characters from the string
+    let targStr = currStr.substring(x, x + string.length);
+    let resStr = ""
+    for (let i = 0; i < targStr.length; i++) {
+      if (targStr[i] == " ") {
+        resStr += " "
+      }else{
+        resStr += string[i];
       }
-      let {x, y} = fixedStringCoords[fixedStrings.indexOf(string)];
-      let currStr = rows[y];
-      if (currStr == undefined) {
-        return;
-      }
-      //Replace all non-space characters with characters from the string
-      let targStr = currStr.substring(x, x + string.length);
+      
+    }
+    rows[y] = currStr.substring(0, x) + resStr + currStr.substring(x + string.length);
+  });
+
+  //Add center string
+  if (centerStringText != '') {
+    let {x, y} = centerStringPos;
+    let middleRowLengthOfString = centerStringText.split("\n")[Math.floor(centerStringText.split("\n").length / 2)].length;
+    x = lineLength/2 + x - middleRowLengthOfString/2;
+    y = Math.floor(numberOfLines/2 + y);
+    
+    let splitString = centerStringText.split('\n');
+    //Replace all non-space characters with characters from the string
+    for (let i = 0; i < splitString.length; i++) {
+      let currLine = splitString[i];
+      let currStr = rows[y + i];
+
+      let targStr = currStr.substring(x, x + currLine.length);
       let resStr = ""
       for (let i = 0; i < targStr.length; i++) {
-        if (targStr[i] == " ") {
-          resStr += " "
+        if (targStr[i] == " " && doPerlin) {
+          //Get number from ascii character
+          resStr +=  ".";//`${offsetAsciiCharacters(currLine[i],i)}`;
+        }else if (currLine[i] == " ") {
+          resStr += targStr[i];
         }else{
-          resStr += string[i];
+          resStr += currLine[i];
         }
         
       }
-      rows[y] = currStr.substring(0, x) + resStr + currStr.substring(x + string.length);
-    });
-
-    //Add center string
-    if (centerStringText != '') {
-      let {x, y} = centerStringPos;
-      let middleRowLengthOfString = centerStringText.split("\\n")[Math.floor(centerStringText.split("\\n").length / 2)];
-      x = lineLength/2 + x - middleRowLengthOfString.length/2;
-      y = Math.floor(numberOfLines/2 + y);
-      let str = replaceAll(centerStringText, "\\s", " ");
-      
-      let splitString = str.split('\\n');
-      for (let i = 0; i < splitString.length; i++) {
-        let currLine = splitString[i];
-        let currStr = rows[y + i];
-        rows[y + i] = currStr.substring(0, x) + currLine + currStr.substring(x + currLine.length);
-      }
+      resStr = resStr.replaceAll(".", " ")
+      rows[y+i] = currStr.substring(0, x) + resStr + currStr.substring(x + currLine.length);
     }
+    // rows[y] = currStr.substring(0, x) + resStr + currStr.substring(x + string.length);
+    // for (let i = 0; i < splitString.length; i++) {
+    //   let currLine = splitString[i];
+    //   let currStr = rows[y + i];
+    //   rows[y + i] = currStr.substring(0, x) + currLine + currStr.substring(x + currLine.length);
+    // }
   }
+  
   let asciiRows = []
   for (let i = 0; i < rows.length; i++) {
     asciiRows.push(<div key={i}>{rows[i]}</div>);
@@ -224,4 +233,13 @@ function GetImagePixelData(img)
     pixelData2d.push(pixelData.slice(i * img.width, (i + 1) * img.width));
   }
   return pixelData2d;
+}
+
+function offsetAsciiCharacters(asciiCharacters, offset) {
+  let newAsciiCharacters = [];
+  for (let i = 0; i < asciiCharacters.length; i++) {
+    let newChar = asciiCharacters[i].charCodeAt(0) + offset;
+    newAsciiCharacters.push(String.fromCharCode(newChar));
+  }
+  return newAsciiCharacters;
 }
