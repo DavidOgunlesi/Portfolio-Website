@@ -32,14 +32,14 @@ export function Content(){
             <div className='horizontal_container'>
                 <div className='text_left'>
                     <p>I start a lot of projects. If every artist has a thousand bad drawings
-                        before they can draw a good one, then I have a thousand bad projects
-                        before I can make a good one. I'm not sure if that's true, but I'm
-                        sure that I have a lot of bad projects. I'm also sure that I have
-                        a lot of good projects. Though many projects lie somewhere in between; in 
-                        the realm of the mediocre and the unfinished.
+                        before they can draw a good one, then maybe I'm on track to hit gold.
+                        I'm not sure if that's true, but I'm sure that I have a lot of bad projects. 
+                        I'm also sure that I have a lot of good projects. Though many projects lie 
+                        somewhere in between; in the realm of the mediocre and the unfinished.
 
                     </p>
-                    <p>Let's stick to the good projects.</p>
+                    <p>Let's stick to the good projects. </p>
+                    <p>This is supposed to be    portfolio afterall... {"(ಠ_ಠ)"}</p>
                 </div>
                 <AsciiCarousel images={[
                 {caption: "Heart", imageURL: '/heart.jpg'}, 
@@ -47,7 +47,80 @@ export function Content(){
                 ]}/>
             </div>
         </div>
+        <div style={{height: "400px"}}/>
+        <div className="content_double_container">
+            <div className="content_container" id="#Papers">  
+                <Heading text="About me" style={{textAlign:"left"}}/>
+                <div className='vertical_container'>
+                    <div className='text_middle' style={{textAlign: "left"}}>
+                        <p>Hi I'm David, if you didn't know. Welcome to my about-me where we talk
+                            about me. How exciting. I'm a developer, a designer, a writer, a reader, a thinker, a
+                            dreamer, a doer, a procrastinator, a procrastinator, a procrastinator, a
+                            procrastinator, a procrastinator, a procrastinator, a procrastinator, a
+                            procrastinator, a procrastinator, a procrastinator, a procrastinator, a...
+                        </p>
+                        <AsciiHRule char="-"/>
+                        <p>
+                        Jokes aside, I would describe myself as an artistic-minded programmer. 
+                        I use programming as a tool to create art.
+                        </p>
+                        <p>
+                        I'm not a programmer who
+                        creates art. I'm an artist who uses programming as a tool to create art.
+                        </p>
+                        <p>But I'm still a goddamn good programmer.</p>
+                        <AsciiHRule char="-"/>
+                        <p>My favourite topics are: </p>
+                        <ul>
+                            <li>Computer Vision</li>
+                            <li>Computer Graphics</li>
+                            <li>Mathematics</li>
+                            <li>Physics</li>
+                            <li>Music</li>
+                            <li>Art</li>
+                            <li>Science Fiction</li>
+                            <li>History</li>
+                            <li>Philosophy</li>
+                            <li>Psychology</li>
+                        </ul>
+                        <AsciiHRule char="-"/>
+                        <p>My favourite books are: </p>
+                        <ul>
+                            <li>1984</li>
+                            <li>Dune</li>
+                        </ul>
+                        <AsciiHRule char="-"/>
+                        <p>My hobbies include: </p>
+                        <ul>
+                            <li>Game Developing</li>
+                            <li>Writing</li>
+                            <li>Programming (a given)</li>
+                            <li>Gaming</li>
+                            <li>Anime</li>
+                            <li>Making awesome portfolios</li>
+                            <li>Sleeping</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div className="content_container" id="#Papers">  
+                <Heading text="Papers" style={{textAlign:"right"}}/>
+                <div className='vertical_container'>
+                    <div className='text_middle'>
+                        
+                            {/* The beauty of being a developer is that you can make anything.
+                            The beauty of being a university student is that you can't make anything.
+                            The beauty of being a university student is that you can write about anything. */}
+                            <p>The beauty of being a university student is that you occasionally get to write about anything.</p>
+                            <p>The beauty of being a developer is that you can make anything.</p>
+                            <p>The two go in hand in hand. I love to write about what I make and I love to make what I write about.</p>
+                            <p>So here are some of my papers. Written by yours truly.</p>
+                    </div>
+                    <div className="emphasis">Generating Artificial Societies</div>
+                </div>
+            </div>
         </div>
+    </div>
         
     );
 }
