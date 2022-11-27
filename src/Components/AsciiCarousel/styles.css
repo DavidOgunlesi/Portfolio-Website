@@ -2,8 +2,7 @@
 .ascii_carosel{
     white-space: pre;
     width: 25vw;
-    transform: scale(25vw);
-    margin-right: 25vw;
+    transform: scale(25vw); 
     /* letter-spacing: 1px;
     line-height: 6px;
     font-size: 9px; */
@@ -12,7 +11,6 @@
     width: 25vw;
     height: 25vw;
     overflow: hidden;
-    margin-right: 25vw;
 }
 .ascii_carosel_image{
     letter-spacing: 2px;
