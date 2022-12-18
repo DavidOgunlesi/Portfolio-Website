@@ -36,7 +36,6 @@ function App() {
         centrex/=spiralCenter
         let timeOffset = 500;//background-color: #3e4451;
         let maxSpiralSpeed = 10;
-        let cycleSpeed = 100;
         let spiralSpeed = 4;//(time+timeOffset)/(100*Math.sin(time/cycleSpeed))
         //Rotate the grid from centre
         let distanceFromCenter = Math.sqrt(Math.pow(x - centrex, 2) + Math.pow(y - centrey, 2));

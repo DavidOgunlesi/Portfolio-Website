@@ -23,7 +23,7 @@ export function AsciiCarousel({images}){
       }, [currentImage]);
 
 
-    if (imagesLoadedCount == 0) {
+    if (imagesLoadedCount === 0) {
         // Load images and convert to ascii
         images.forEach(image => {
             CovertImageToAsciiString(image.imageURL).then((data) => {
@@ -76,8 +76,8 @@ export function AsciiCarousel({images}){
                 <div  className="ascii_carosel_caption">{images[currentImage].caption}</div>
                 <div className="ascii_carosel_info">
                     [{
-                    images.map((image, i) => {
-                        let style = i == currentImage ? "control_btn_active" : "control_btn";
+                    images.map((_, i) => {
+                        let style = i === currentImage ? "control_btn_active" : "control_btn";
                         return <div className={style} key={i} onClick={() => setCurrentImage(i)}></div>
                     })
                 }]

@@ -42,13 +42,13 @@ export function AsciiDisplay({
     function handleWindowResize() {
       setWindowSize(getWindowSize());
     }
-    if (fixedStringCoords.length == 0) {
+    if (fixedStringCoords.length === 0) {
       fixedStringCoords.length = [];
       fixedStrings.forEach(string => {
         fixedStrings[fixedStrings.indexOf(string)] = ` ${string} `;
         let x = randomIntRange(0, lineLength - string.length);
         let y = randomIntRange(0, numberOfLines - 1);
-        while (fixedStringCoords.some(coord => coord.x == x && coord.y == y)) {
+        while (fixedStringCoords.some(coord => coord.x === x && coord.y === y)) {
           x = randomIntRange(0, lineLength - string.length*2);
           y = randomIntRange(0, numberOfLines - 1);
         }
@@ -84,7 +84,7 @@ export function AsciiDisplay({
       }
 
       let char = RangeToCustomAsciiCharacters(0,1,(value+1)/2," ,-~:;  =*#$@     ");
-      if (char == undefined) {
+      if (char === undefined) {
         char = ' ';
       }
       values += char;
@@ -94,19 +94,19 @@ export function AsciiDisplay({
 
   //Add fixed strings
   fixedStrings.forEach(string => {
-    if (fixedStringCoords.length == 0) {
+    if (fixedStringCoords.length === 0) {
       return;
     }
     let {x, y} = fixedStringCoords[fixedStrings.indexOf(string)];
     let currStr = rows[y];
-    if (currStr == undefined) {
+    if (currStr === undefined) {
       return;
     }
     //Replace all non-space characters with characters from the string
     let targStr = currStr.substring(x, x + string.length);
     let resStr = ""
     for (let i = 0; i < targStr.length; i++) {
-      if (targStr[i] == " ") {
+      if (targStr[i] === " ") {
         resStr += " "
       }else{
         resStr += string[i];
@@ -117,7 +117,7 @@ export function AsciiDisplay({
   });
 
   //Add center string
-  if (centerStringText != '') {
+  if (centerStringText !== '') {
     let {x, y} = centerStringPos;
     let middleRowLengthOfString = centerStringText.split("\n")[Math.floor(centerStringText.split("\n").length / 2)].length;
     x = lineLength/2 + x - middleRowLengthOfString/2;
@@ -132,10 +132,10 @@ export function AsciiDisplay({
       let targStr = currStr.substring(x, x + currLine.length);
       let resStr = ""
       for (let i = 0; i < targStr.length; i++) {
-        if (targStr[i] == " " && doPerlin) {
+        if (targStr[i] === " " && doPerlin) {
           //Get number from ascii character
           resStr +=  ".";//`${offsetAsciiCharacters(currLine[i],i)}`;
-        }else if (currLine[i] == " ") {
+        }else if (currLine[i] === " ") {
           resStr += targStr[i];
         }else{
           resStr += currLine[i];
@@ -184,62 +184,4 @@ function RangeToCustomAsciiCharacters(min, max, value, asciiCharacters) {
 function randomIntRange(min, max)
 {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-}
-
-function replaceAll(str, find, replace) {
-  return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
-}
-
-function loadImage(src){
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onerror = reject;
-    img.src = src;
-    img.onload = () => resolve(img);
-    
-  })  
-}
-
-function GetImagePixelData(img)
-{
-  var canvas = document.createElement('canvas');
-  var ctx = canvas.getContext('2d');
-  // wait for the image to load
-  var pixelData = [];
-  // draw the image on the canvas
-  ctx.drawImage(img, 0, 0);
-  // get the image data
-  var imageData = ctx.getImageData(0, 0, img.width, img.height);
-  // get the pixel data from the image data
-  var data = imageData.data;
-  // loop over all the pixels
-  var pixelData = [];
-  for (var i = 0; i < data.length; i += 4) {
-    // convert the rgba values to a single value
-    var r = data[i];
-    var g = data[i + 1];
-    var b = data[i + 2];
-    var a = data[i + 3];
-    var brightness = (3 * r + 4 * g + b) >>> 3;
-    pixelData.push(brightness);
-  }
-  // Convert pixel data to 2d array
-  var pixelData2d = [];
-  for (var i = 0; i < img.height; i++) {
-    pixelData2d.push(pixelData.slice(i * img.width, (i + 1) * img.width));
-  }
-  return pixelData2d;
-}
-
-function offsetAsciiCharacters(asciiCharacters, offset) {
-  let newAsciiCharacters = [];
-  for (let i = 0; i < asciiCharacters.length; i++) {
-    let newChar = asciiCharacters[i].charCodeAt(0) + offset;
-    newAsciiCharacters.push(String.fromCharCode(newChar));
-  }
-  return newAsciiCharacters;
 }
