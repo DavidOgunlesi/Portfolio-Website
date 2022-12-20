@@ -68,6 +68,7 @@ export function AsciiDisplay({
       clearInterval(interval);
     };
   }, []);
+
   let rows = [];
 
   for (let y = 0; y < numberOfLines; y++) {
@@ -78,12 +79,13 @@ export function AsciiDisplay({
       let centrey = numberOfLines/2;
       
       let data = cellFunction(centrex, centrey, x, y, time);
-      var value = 1
+      let value = 1
+      
       if (doPerlin) {
         value = quickNoise.noise((data.newX+centrex+offset)/resolution, (data.newY+centrey+offset)/resolution, 0);
       }
-
       let char = RangeToCustomAsciiCharacters(0,1,(value+1)/2," ,-~:;  =*#$@     ");
+      
       if (char === undefined) {
         char = ' ';
       }
@@ -157,7 +159,6 @@ export function AsciiDisplay({
   for (let i = 0; i < rows.length; i++) {
     asciiRows.push(<div key={i}>{rows[i]}</div>);
   }
-
   return (
     <div className="main" ref={div} style={{color: color}}>
       {asciiRows}
