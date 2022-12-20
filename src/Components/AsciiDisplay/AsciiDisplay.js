@@ -70,7 +70,6 @@ export function AsciiDisplay({
   }, []);
 
   let rows = [];
-
   for (let y = 0; y < numberOfLines; y++) {
     let values = "";
     for (let x = 0; x < lineLength; x++) {

@@ -8,7 +8,7 @@ function App() {
   const [splashText, setSplashText] = useState("")
   let max = 4;
   let min = 0
-  let spiralCenter = Math.floor(Math.random() * (max - min + 1)) + min;
+  let spiralCenter = Math.max(Math.floor(Math.random() * (max - min + 1)) + min, 1);
 
   fetch(splashTextString)
   .then(r => r.text())
@@ -48,7 +48,13 @@ function App() {
   
         newY+=centrey;
         newX+=centrex;
-        return {newX, newY};
+
+        // In case there is an error defualt to input coords
+        if (isNaN(newX) || isNaN(newY)){
+          newX = x;
+          newY = y;
+        }
+        return {newX: newX, newY: newY};
       }}
       />
       <AsciiDisplay
