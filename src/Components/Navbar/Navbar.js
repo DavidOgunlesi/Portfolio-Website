@@ -8,7 +8,8 @@ return (
     <div className="navbar_container">
         <AsciiHRule char="="/>
         <div className="navbar">
-            <NavLink  link='' text='#Sandbox'/>  
+            {/* <NavLink  link='' text='#Sandbox'/>   */}
+            <NavLink  link='' text='#LinkedIn'/>  
             <NavLink  link='' text='#Projects'/>  
             <NavLink  link='' text='#Papers'/>  
             <NavLink  link='' text='#Design-Portfolio'/>  

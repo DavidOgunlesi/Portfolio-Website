@@ -6,7 +6,7 @@ const FONTWIDTH = 9.84615384615;
 
 export function AsciiDisplay({
   cellFunction = defaultCellFunction,
-  color = "#00cdd5",
+  color = "#58729E",
   fps=60,
   doPerlin=false,
   fixedStrings=[],
@@ -159,8 +159,14 @@ export function AsciiDisplay({
     asciiRows.push(<div key={i}>{rows[i]}</div>);
   }
   return (
-    <div className="main" ref={div} style={{color: color}}>
-      {asciiRows}
+    <div className="ascii_display">
+      <div className="bg"></div>
+      <div className="main" ref={div} style={{color: color}}>
+        {asciiRows}
+      </div>
+      <div className="grid r"></div>
+      <div className="grid g"></div>
+      <div className="grid b"></div>
     </div>
   );
 }

@@ -3,7 +3,6 @@
     width: 100%;
     height: 100px;  
     bottom: 0px;
-    overflow: hidden;
     color: white;
 }
 .navbar{
@@ -12,7 +11,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 5rem;
-    background-color: #3e4451;
+    /* background-color: #061434; */
     color: white;
     height: 5rem;
 }
@@ -35,4 +34,20 @@
 a:link, a:visited, a:hover, a:active{
     color: white;
     text-decoration: none;
+}
+
+/* media rule*/
+
+@media screen and (max-width: 768px){
+    .navbar{
+        flex-direction: column;
+        padding: 0 1rem;
+    }
+    .navbar_text{
+        margin-bottom: 1rem;
+    }
+    .navbar_text:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
 }

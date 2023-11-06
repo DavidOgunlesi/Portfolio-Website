@@ -15,6 +15,32 @@ function App() {
   .then(text => {
     setSplashText(text);
   });
+
+  const cellFunction = (centrex, centrey, x, y, time) => {
+    x/=2;
+    centrex/=spiralCenter
+    let timeOffset = 500;//background-color: #3e4451;
+    let maxSpiralSpeed = 10;
+    let spiralSpeed = 4;//(time+timeOffset)/(100*Math.sin(time/cycleSpeed))
+    //Rotate the grid from centre
+    let distanceFromCenter = Math.sqrt(Math.pow(x - centrex, 2) + Math.pow(y - centrey, 2));
+    time += timeOffset;
+    time *= Math.min((spiralSpeed)/(distanceFromCenter), maxSpiralSpeed);
+    let cx = x - centrex;
+    let cy = y - centrey;
+    let newX = cx * Math.cos(time/100) - cy * Math.sin(time/100);
+    let newY = cx * Math.sin(time/100) + cy * Math.cos(time/100);
+
+    newY+=centrey;
+    newX+=centrex;
+
+    // In case there is an error defualt to input coords
+    if (isNaN(newX) || isNaN(newY)){
+      newX = x;
+      newY = y;
+    }
+    return {newX: newX, newY: newY};
+  }
   
 
   return (
@@ -22,40 +48,16 @@ function App() {
     <div className='App'>
       <div className='Background'></div>
       <AsciiDisplay
-      doPerlin
-      fixedStrings={[
-        '\\davidogunlesi.com', '\\Artist','\\Problem Solver', '\\Software Engineer', 
-        '\\Web Developer', '\\Student', '\\Learner', '\\Creator']}
+        doPerlin
+        fixedStrings={[
+          '\\davidogunlesi.com', '\\Artist','\\Problem Solver', '\\Software Engineer', 
+          '\\Web Developer', '\\Student', '\\Learner', '\\Creator']}
 
-      centerStringText={splashText}
-      centerStringPos={{x: 0, y: 0}}
-      fps={600}
-      lineNumberCutOff={6}
-      cellFunction = {(centrex, centrey, x, y, time) => {
-        x/=2;
-        centrex/=spiralCenter
-        let timeOffset = 500;//background-color: #3e4451;
-        let maxSpiralSpeed = 10;
-        let spiralSpeed = 4;//(time+timeOffset)/(100*Math.sin(time/cycleSpeed))
-        //Rotate the grid from centre
-        let distanceFromCenter = Math.sqrt(Math.pow(x - centrex, 2) + Math.pow(y - centrey, 2));
-        time += timeOffset;
-        time *= Math.min((spiralSpeed)/(distanceFromCenter), maxSpiralSpeed);
-        let cx = x - centrex;
-        let cy = y - centrey;
-        let newX = cx * Math.cos(time/100) - cy * Math.sin(time/100);
-        let newY = cx * Math.sin(time/100) + cy * Math.cos(time/100);
-  
-        newY+=centrey;
-        newX+=centrex;
-
-        // In case there is an error defualt to input coords
-        if (isNaN(newX) || isNaN(newY)){
-          newX = x;
-          newY = y;
-        }
-        return {newX: newX, newY: newY};
-      }}
+        centerStringText={splashText}
+        centerStringPos={{x: 0, y: 0}}
+        fps={600}
+        lineNumberCutOff={6}
+        cellFunction = {cellFunction}
       />
       <AsciiDisplay
       lineNumberCutOff={6}
