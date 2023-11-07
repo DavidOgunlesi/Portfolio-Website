@@ -12,7 +12,6 @@ export function Content(){
     const get_text_file = async (filepath) => {
         // prefix public dir files with `process.env.PUBLIC_URL`
         // see https://create-react-app.dev/docs/using-the-public-folder/
-        console.log(filepath);
         const res = await fetch(`${process.env.PUBLIC_URL}/${filepath}`);
         // check for errors
         if (!res.ok) {
@@ -23,15 +22,16 @@ export function Content(){
 
     const filePaths = require.context('../../public/markdown/projects', true, /\.txt$/).keys();
     useEffect(() => {
+        var newFiles = [];
         filePaths.map(file => {
             /*remove extension */
             //file = file.replaceAll('.md', '');
             get_text_file(`../markdown/projects${file.slice(1)}`).then((text)=>{
-                if (files.includes(text)) return;
-                files = files.push(text);
-                //setFiles(files);
+                if (newFiles.includes(text)) return;
+                newFiles.push(text);
             }).catch(console.error);
             });
+            setFiles(newFiles);
       }, []);
 
 
