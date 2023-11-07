@@ -1,19 +1,14 @@
 .navbar_container{
-    position: absolute;
     width: 100%;
-    height: 100px;  
-    bottom: 0px;
     color: white;
 }
 .navbar{
-   
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 5rem;
     /* background-color: #061434; */
     color: white;
-    height: 5rem;
 }
 
 .navbar_text {

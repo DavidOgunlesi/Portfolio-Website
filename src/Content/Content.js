@@ -21,7 +21,7 @@ export function Content(){
         return res.text();
       };
 
-    const filePaths = require.context('../../public/markdown/projects', true, /\.md$/).keys();
+    const filePaths = require.context('../../public/markdown/projects', true, /\.txt$/).keys();
     useEffect(() => {
         filePaths.map(file => {
             /*remove extension */
@@ -100,7 +100,7 @@ export function Content(){
         return (<div className='vertical_container' style={{gap: 50}}>{elements}</div>);
       }
     return (
-        <div className='content_main'>
+        <div>
             {/* <div className="content_container" id="#Sandbox">  
                 <Heading text="Sandbox"/>
                 <div className='horizontal_container'>
@@ -123,11 +123,10 @@ export function Content(){
                 </div>
             </div> */}
             {/* <Markdown>{file}</Markdown> */}
-            <div style={{height: "00px"}}/>
             <div className="content_container" id="#Projects">  
                 <Heading text="Projects & Experience" style={{textAlign:"right"}}/>
                 
-                <div className='horizontal_container left'>
+                <div className='horizontal_container left wrap'>
                     {createTags()}
                 </div>
                 {activeTag == "" &&

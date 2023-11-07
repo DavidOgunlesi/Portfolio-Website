@@ -1,11 +1,9 @@
-.content_main{
-    margin-top: 100vh;
-}
 
 .content_container{
     color: white;
     padding: 20px;
     margin: 20px;
+    scale: 0.9;
     /* border-radius: 5px;
     
     box-shadow: 0 0 10px rgba(0,0,0,0.5); */
@@ -28,10 +26,13 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 20px;
 
     &.left{
         justify-content: flex-start;
+    }
+
+    &.wrap{
+        flex-wrap: wrap;
     }
 }
 .vertical_container{

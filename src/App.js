@@ -65,8 +65,10 @@ function App() {
       centerStringText={splashText}
       centerStringPos={{x: 0, y: 0}}
       />
+      <div className='main_page'>
       <Navbar/>
       <Sandbox/>
+      </div>
     </div>
   );
 }
