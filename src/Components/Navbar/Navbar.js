@@ -11,9 +11,11 @@ return (
             {/* <NavLink  link='' text='#Sandbox'/>   */}
             <NavLink  link='' text='#LinkedIn'/>  
             <NavLink  link='' text='#Projects'/>  
-            <NavLink  link='' text='#Papers'/>  
-            <NavLink  link='' text='#Design-Portfolio'/>  
             <NavLink  link='' text='#About-me'/>
+            <NavLink  link='' text='#Papers'/>  
+            <NavLink  link='' text='#Contact'/>  
+            {/* <NavLink  link='' text='#Design-Portfolio'/>   */}
+            
         </div>
     </div>
     );

@@ -20,26 +20,22 @@ export function Content(){
         return res.text();
       };
 
-    const filePaths = require.context('../../public/markdown/projects', true, /\.txt$/).keys();
+    const filePaths = require.context('../../public/markdown/projects', true, /\.md$/).keys();
     useEffect(() => {
         var newFiles = [];
         filePaths.map(file => {
-            /*remove extension */
-            //file = file.replaceAll('.md', '');
-            get_text_file(`../markdown/projects${file.slice(1)}`).then((text)=>{
+            get_text_file(`markdown/projects${file.slice(1)}`).then((text)=>{
                 if (newFiles.includes(text)) return;
                 newFiles.push(text);
+                setFiles(newFiles);
             }).catch(console.error);
             });
-            console.log(newFiles);
-            setFiles(newFiles);
       }, []);
 
 
       const getProperty = (text, property) => {
-        text = text.split('---');
+        text = text.split('--?');
         text = text.slice(1, text.length-1);
-        //text = text[0].replace('\r', '');
         var text = text[0].split('\n');
         var fitered = text.filter((line) => {
             return line.includes(property);
@@ -100,6 +96,7 @@ export function Content(){
         });
         return (<div className='vertical_container' style={{gap: 50}}>{elements}</div>);
       }
+
     return (
         <div>
             {/* <div className="content_container" id="#Sandbox">  

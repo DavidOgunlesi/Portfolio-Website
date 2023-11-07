@@ -29,6 +29,55 @@
   display: flex;
   flex-direction: column;
 }
+.pfp{
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  top: 370px;
+  left: 20vw;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+@media screen and (max-width: 1700px){
+  .pfp{
+    /* top: 200px; */
+    left: 15vw;
+  }
+}
+@media screen and (max-width: 1500px){
+  .pfp{
+    /* top: 200px; */
+    left: 10vw;
+  }
+}
+
+@media screen and (max-width: 1300px){
+  .pfp{
+    /* top: 200px; */
+    left: 5vw;
+  }
+}
+
+@media screen and (max-width: 1200px){
+  .pfp{
+    top: 200px;
+  }
+}
+
+.pfp > img{
+  object-fit: contain;
+  scale: 0.3;
+  translate : 0px 5px;
+}
 
 @keyframes gradient {
 	0% {

@@ -160,7 +160,7 @@ export function AsciiDisplay({
   }
   return (
     <div className="ascii_display">
-      <div className="bg"></div>
+      {/* <div className="bg"></div> */}
       <div className="main" ref={div} style={{color: color}}>
         {asciiRows}
       </div>

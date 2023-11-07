@@ -45,13 +45,13 @@ function App() {
 
   return (
 
-    <div className='App'>
+    <div className='App' id="ex1">
       <div className='Background'></div>
       <AsciiDisplay
         doPerlin
         fixedStrings={[
-          '\\davidogunlesi.com', '\\Artist','\\Problem Solver', '\\Software Engineer', 
-          '\\Web Developer', '\\Student', '\\Learner', '\\Creator']}
+          '\\davidogunlesi', '\\Artist','\\Problem Solver', '\\Software Engineer', 
+          '\\Web Developer', '\\Student', '\\Learner', '\\Creator', '\\Game Developer', ]}
 
         centerStringText={splashText}
         centerStringPos={{x: 0, y: 0}}
@@ -65,6 +65,9 @@ function App() {
       centerStringText={splashText}
       centerStringPos={{x: 0, y: 0}}
       />
+      <div className='pfp' id="ex1-layer">
+        <img src='/me.jpg'/>
+      </div>
       <div className='main_page'>
       <Navbar/>
       <Sandbox/>
