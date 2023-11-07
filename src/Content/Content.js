@@ -31,6 +31,7 @@ export function Content(){
                 newFiles.push(text);
             }).catch(console.error);
             });
+            console.log(newFiles);
             setFiles(newFiles);
       }, []);
 
