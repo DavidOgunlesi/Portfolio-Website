@@ -5,9 +5,22 @@ import Markdown from 'react-markdown'
 import { useEffect, useState } from 'react';
 
 export function Content(){
-
+    const [update, setUpdate] = useState(false);
     const [files, setFiles] = useState([]);
-    const [activeTag, setActiveTag] = useState("");
+    const [activeTags, setActiveTags] = useState([]);
+
+    const addRemoveTag = (tag) => {
+        if (activeTags.includes(tag)) {
+            var index = activeTags.indexOf(tag);
+            activeTags.splice(index, 1);
+            setActiveTags(activeTags);
+            console.log(activeTags);
+            return;
+        }
+        activeTags.push(tag);
+        setActiveTags(activeTags);
+        console.log(activeTags);
+    }
 
     const get_text_file = async (filepath) => {
         // prefix public dir files with `process.env.PUBLIC_URL`
@@ -60,7 +73,12 @@ export function Content(){
         var elements = []
         Object.keys(tagGroups).forEach(function(key, index) {
             elements.push(
-                <div className='filter' key={index} onPointerDown={() => setActiveTag(key)}>
+                <div className={activeTags.includes(key) ? 'filter active' : 'filter'} key={index} onPointerDown={() => 
+                {
+                    // setActiveTag(key)
+                    addRemoveTag(key);
+                    setUpdate(!update);
+                }}>
                     <div className='label'>#{tagGroups[key].label}</div>
                     <div className='number'>{tagGroups[key].count}</div>
                 </div>
@@ -69,7 +87,31 @@ export function Content(){
         return elements;
       }
 
-      const displayProjects = (tag) => {
+      function findCommonElement(array1, array2) { 
+  
+        // Loop for array1 
+        for (let i = 0; i < array1.length; i++) { 
+      
+            // Loop for array2 
+            for (let j = 0; j < array2.length; j++) { 
+      
+                // Compare the element of each and 
+                // every element from both of the 
+                // arrays 
+                if (array1[i] === array2[j]) { 
+      
+                    // Return if common element found 
+                    return true; 
+                } 
+            } 
+        } 
+      
+        // Return if no common element exist 
+        return false; 
+    } 
+
+      const displayProjects = (activeTags) => {
+        console.log("!");
         var elements = []
         files.map((file, index) => {
             var title = getProperty(file, 'title');
@@ -79,7 +121,7 @@ export function Content(){
             var image = getProperty(file, 'image');
             image = image.replaceAll('"', '');
             /*get image*/
-            if (tags.includes(tag)) {
+            if (findCommonElement(tags, activeTags)) {
                 elements.push(
                     <div className='project_display' key={title}>
                         <div className='wipe'></div>
@@ -122,12 +164,32 @@ export function Content(){
             </div> */}
             {/* <Markdown>{file}</Markdown> */}
             <div className="content_container" id="#Projects">  
-                <Heading text="Projects & Experience" style={{textAlign:"right"}}/>
+                <Heading text="What do you want me to be?" style={{textAlign:"left"}}/>
                 
-                <div className='horizontal_container left wrap'>
+                <div className='filter_container left wrap'>
+                    <div className='filter' onPointerDown={()=> setActiveTags([])}>
+                        <div className='label'>#Anything</div>
+                    </div>
+                    <div className='filter' onPointerDown={()=> setActiveTags(["Gamedev", "Unity", "Computer Graphics"])}>
+                        <div className='label'>#Game Developer</div>
+                    </div>
+                    <div className='filter' onPointerDown={()=> setActiveTags(["Web Development"])}>
+                        <div className='label'>#Web Developer</div>
+                    </div>
+                    <div className='filter' onPointerDown={()=> setActiveTags(["Simulation", "Uni", "AI", "Computer Graphics"])}>
+                        <div className='label'>#Programmer</div>
+                    </div>
+                    <div className='filter' onPointerDown={()=> setActiveTags(["Game Design", "Graphic Design"])}>
+                        <div className='label'>#Designer</div>
+                    </div>
+                </div>
+            </div>
+            <div className="content_container" id="#Projects">  
+                <Heading text="Projects & Experience" hideRules style={{textAlign:"left"}}/>
+                <div className='filter_container left wrap'>
                     {createTags()}
                 </div>
-                {activeTag == "" &&
+                {activeTags.length == 0 &&
                     <div className='horizontal_container'>
                         <div className='text_left'>
                             <p>I start a lot of projects. If every artist has a thousand bad drawings
@@ -147,7 +209,7 @@ export function Content(){
                     </div>
                 }
                 {
-                    activeTag != "" && displayProjects(activeTag)
+                    activeTags.length != 0 && displayProjects(activeTags)
                 }
                 
             </div>
@@ -163,7 +225,7 @@ export function Content(){
                                 procrastinator, a procrastinator, a procrastinator, a procrastinator, a
                                 procrastinator, a procrastinator, a procrastinator, a procrastinator, a...
                             </p>
-                            <AsciiHRule char="-"/>
+                            <div className='hr dashed'/>
                             <p>
                             Jokes aside, I would describe myself as an artistic-minded programmer. 
                             I use programming as a tool to create art.
@@ -173,7 +235,7 @@ export function Content(){
                             creates art. I'm an artist who uses programming as a tool to create art.
                             </p>
                             <p>But I'm still a goddamn good programmer.</p>
-                            <AsciiHRule char="-"/>
+                            <div className='hr dashed'/>
                             <p>My favourite topics are: </p>
                             <ul>
                                 <li>Computer Vision</li>
@@ -187,13 +249,13 @@ export function Content(){
                                 <li>Philosophy</li>
                                 <li>Psychology</li>
                             </ul>
-                            <AsciiHRule char="-"/>
+                            <div className='hr dashed'/>
                             <p>My favourite books are: </p>
                             <ul>
                                 <li>1984</li>
                                 <li>Dune</li>
                             </ul>
-                            <AsciiHRule char="-"/>
+                            <div className='hr dashed'/>
                             <p>My hobbies include: </p>
                             <ul>
                                 <li>Game Developing</li>
@@ -208,7 +270,7 @@ export function Content(){
                     </div>
                 </div>
                 <div className="content_container" id="#Papers">  
-                    <Heading text="Papers & Blogs" style={{textAlign:"right"}}/>
+                    <Heading text="Papers & Blogs" style={{textAlign:"right"}} />
                     <div className='vertical_container'>
                         <div className='text_middle'>
                             
@@ -218,25 +280,47 @@ export function Content(){
                                 <p>The beauty of being a university student is that you occasionally get to write about anything.</p>
                                 <p>The beauty of being a developer is that you can make anything.</p>
                                 <p>The two go in hand in hand. I love to write about what I make and I love to make what I write about.</p>
-                                <p>So here are some of my papers. Written by yours truly.</p>
+                                <p>So here are some of my writings. Written by yours truly.</p>
                         </div>
-                        <div className="emphasis">Generating Artificial Societies</div>
+                        <div className="emphasis"> <a href="https://plasmarcstudios.co.uk/containcorp-blog/">Containcorp Development Blog</a></div>
+                        <div className="emphasis"> <a href="/files/Dissertation1.pdf">Generating Artificial Societies Dissertation</a></div>
+                    </div>
+
+
+                    <div style={{marginTop: 30}}  id="#Contact"></div>
+                    <Heading text="Contact" style={{textAlign:"right"}}/>
+                    <div className='vertical_container'>
+                        <div className='text_middle'>
+                            <p>Want to get in touch? </p>
+                            <p>Send me an email at <a href="mailto: david.ogunlesi@yahoo.co.uk"/>david.ogunlesi@yahoo.co.uk</p>
+                            <p>Or connect with me on <a href="https://www.linkedin.com/in/david-ogunlesi-b96b31182/">LinkedIn</a></p>
+                        </div>
                     </div>
                 </div>
+                {/* <div className="content_container" id="#Contact">  
+                    <Heading text="Contact" style={{textAlign:"right"}}/>
+                    <div className='vertical_container'>
+                        <div className='text_middle'>
+                            
+                        
+                        </div>
+                        <div className="emphasis"> <a href="/files/Dissertation1.pdf">Generating Artificial Societies</a></div>
+                    </div>
+                </div> */}
         </div>
     </div>
         
     );
 }
 
-function Heading({text, style = {}}){
+function Heading({text, hideRules, style = {}}){
     return (
         <>
-            <AsciiHRule char="="/>
+            {!hideRules && <div className='hr dashed'/>}
             <div className="title" style={style}>
                 <h1><span className="name">{text}</span></h1>
             </div>
-            <AsciiHRule char="."/>
+            {!hideRules && <div className='hr dotted'/>}
         </>
     );
 }

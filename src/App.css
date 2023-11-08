@@ -6,6 +6,7 @@
   font-size: 18px; 
   font-weight: 40; 
   overflow-x: hidden;
+  
   /*line-height: 18px; */
 }
 
@@ -25,6 +26,7 @@
 
 .main_page{
   position: absolute;
+  width: 100%;
   top: 900px;
   display: flex;
   flex-direction: column;

@@ -6,10 +6,10 @@ export function Navbar(){
 return (
 
     <div className="navbar_container">
-        <AsciiHRule char="="/>
+        {/* <div className='hr dotted'/> */}
         <div className="navbar">
             {/* <NavLink  link='' text='#Sandbox'/>   */}
-            <NavLink  link='' text='#LinkedIn'/>  
+            <NavLink  link='https://www.linkedin.com/in/david-ogunlesi-b96b31182/' text='#LinkedIn'/>  
             <NavLink  link='' text='#Projects'/>  
             <NavLink  link='' text='#About-me'/>
             <NavLink  link='' text='#Papers'/>  

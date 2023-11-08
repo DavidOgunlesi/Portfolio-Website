@@ -1,6 +1,6 @@
 --?
 title: "Mecha Duck Overload"
-image: "/heart.jpg"
+image: "/images/mechaduck.png"
 description: "Created a prototype for an action shooter rouge-like."
 tags: ["Gamedev"]
 date: "December 2018"

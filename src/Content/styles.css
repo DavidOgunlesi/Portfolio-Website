@@ -39,7 +39,6 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin: 20px;
 }
 
 .text_right{
@@ -64,6 +63,21 @@
     color: #58729E;
 }
 
+.filter_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    &.left{
+        justify-content: flex-start;
+    }
+
+    &.wrap{
+        flex-wrap: wrap;
+    }
+}
+
 .filter{
     display: flex;
     flex-direction: row;
@@ -83,9 +97,18 @@
     }
 
 
+    
+    &.active{
+        background-color: #58729E;
+        color: white;
+        .number{
+            color: white;
+        }
+    }
+
     &:hover{
         cursor: pointer;
-        background-color: #58729E;
+        background-color: #364866;
         color: white;
         translate: 0px -3px;
         .number{
@@ -144,9 +167,9 @@
     background-color: white;
 }
 
-.project_display > img{
+.project_display > img{ 
     /*cover*/
-    height: 400px;
+    width: 400px;
     object-fit: contain;
     z-index: 2;
 }
@@ -196,6 +219,26 @@
     -webkit-box-orient: vertical;
 }
 
+
+.hr{
+    border: none;
+    border-top: 3px dotted rgb(255, 255, 255);
+    color: #fff;
+    background-color: transparent;
+    height: 0px;
+    width: 100%;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    margin-bottom: 2px;
+}
+.hr.dashed{
+    border-style: dashed;
+}
+.hr.dotted{
+    border-style: dotted;
+}
+
 @media screen and (max-width: 1200px){
     .content_double_container{
         flex-direction: column;
@@ -203,5 +246,26 @@
 
     .text_middle{
         width: inherit;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .info {
+        scale: 0.8;
+    }
+    .project_display > img{ 
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 700px){
+    .horizontal_container{
+        flex-direction: column;
+    }
+
+    .text_left{
+        text-align: left;
+        padding: 0 0vw 0 0;
+        width: 100%;
     }
 }
