@@ -46,6 +46,17 @@ export function Content(){
             });
       }, []);
 
+      const hasProperty = (text, property) => {
+        text = text.split('--?');
+        text = text.slice(1, text.length-1);
+        var text = text[0].split('\n');
+        var fitered = text.filter((line) => {
+            return line.includes(property);
+        });
+        if  (fitered.length == 0) return false;
+
+        return true;
+      }
 
       const getProperty = (text, property, replace = true) => {
         text = text.split('--?');
@@ -92,6 +103,23 @@ export function Content(){
                 </div>
             );
         });
+        return elements;
+      }
+
+      const createLanguageTags = (file) => {
+        var elements = []
+        if (!hasProperty(file, 'languages')) return elements;
+
+        var tags = JSON.parse(getProperty(file, 'languages', false));
+        for (let index = 0; index < tags.length; index++) {
+            const element = tags[index];
+            elements.push(
+                <div className='filter' key={index} style={{margin: 4, height: 7}}>
+                    <div className='label'>{element}</div>
+                </div>
+            );
+        }
+        
         return elements;
       }
 
@@ -198,8 +226,10 @@ export function Content(){
                             <div className='tags'>{tags.join(", ")}</div>
                             <div className='description'>{desc}</div>
                             <div className='date'>{date}</div>
+                            <div className='horizontal_container'>{createLanguageTags(file)}</div>
                         </div>
                         <img src={image}/>
+                        
                     </div>
                 );
             }
