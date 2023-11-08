@@ -8,6 +8,7 @@ export function Content(){
     const [update, setUpdate] = useState(false);
     const [files, setFiles] = useState([]);
     const [activeTags, setActiveTags] = useState([]);
+    const [activeRole, setActiveRole] = useState("Anything");
 
     const addRemoveTag = (tag) => {
         if (activeTags.includes(tag)) {
@@ -46,7 +47,7 @@ export function Content(){
       }, []);
 
 
-      const getProperty = (text, property) => {
+      const getProperty = (text, property, replace = true) => {
         text = text.split('--?');
         text = text.slice(1, text.length-1);
         var text = text[0].split('\n');
@@ -54,13 +55,19 @@ export function Content(){
             return line.includes(property);
         });
         var prop = fitered[0] ?? '';
-        return prop.split(':')[1].trim();
+        var final = prop.split(':')[1].trim();
+
+        if (replace) {
+            final = final.replaceAll('"', '');
+        }
+        
+        return final;
       };
 
       const createTags = () => {
         const tagGroups = {};
         files.map((file) => {
-            var tags = JSON.parse(getProperty(file, 'tags'));
+            var tags = JSON.parse(getProperty(file, 'tags', false));
             tags.map((tag) => {
                 if (tagGroups[tag]) {
                     tagGroups[tag].count = tagGroups[tag].count += 1;
@@ -78,6 +85,7 @@ export function Content(){
                     // setActiveTag(key)
                     addRemoveTag(key);
                     setUpdate(!update);
+                    setActiveRole("Anything");
                 }}>
                     <div className='label'>#{tagGroups[key].label}</div>
                     <div className='number'>{tagGroups[key].count}</div>
@@ -110,12 +118,72 @@ export function Content(){
         return false; 
     } 
 
+    const RudimentaryDateToNumber = (date) => {
+        var dateArr = date.split(' ');
+        var monthStr = dateArr[0].toLowerCase();
+        var yearInt = parseInt(dateArr[1].toLowerCase());
+        var monthInt = 0;
+        switch (monthStr) {
+            case 'january':
+                monthInt = 1;
+                break;
+            case 'february':
+                monthInt = 2;
+                break;
+            case 'march':
+                monthInt = 3;
+                break;
+            case 'april':
+                monthInt = 4;
+                break;
+            case 'may':
+                monthInt = 5;
+                break;
+            case 'june':
+                monthInt = 6;
+                break;
+            case 'july':
+                monthInt = 7;
+                break;
+            case 'august':
+                monthInt = 8;
+                break;
+            case 'september':
+                monthInt = 9;
+                break;
+            case 'october':
+                monthInt = 10;
+                break;
+            case 'november':
+                monthInt = 11;
+                break;
+            case 'december':
+                monthInt = 12;
+                break;
+            default:
+                monthInt = 1;
+                break;
+        }
+        if (date.toLowerCase().includes('present')) {
+            monthInt = 12;
+            yearInt = 3000;
+        }
+        return yearInt*100 + monthInt;
+
+    };
+
+
       const displayProjects = (activeTags) => {
-        console.log("!");
         var elements = []
+        files.sort((a, b) => {
+            var dateA = RudimentaryDateToNumber(getProperty(a, 'date'));
+            var dateB = RudimentaryDateToNumber(getProperty(b, 'date'));
+            return dateB - dateA;
+        });
+
         files.map((file, index) => {
             var title = getProperty(file, 'title');
-            var tags = JSON.parse(getProperty(file, 'tags'));
+            var tags = JSON.parse(getProperty(file, 'tags', false));
             var desc = getProperty(file, 'description');
             var date = getProperty(file, 'date');
             var image = getProperty(file, 'image');
@@ -167,19 +235,19 @@ export function Content(){
                 <Heading text="What do you want me to be?" style={{textAlign:"left"}}/>
                 
                 <div className='filter_container left wrap'>
-                    <div className='filter' onPointerDown={()=> setActiveTags([])}>
+                    <div className={activeRole == "Anything" ? 'filter active' : 'filter'} onPointerDown={()=> {setActiveTags([]); setActiveRole("Anything");}}>
                         <div className='label'>#Anything</div>
                     </div>
-                    <div className='filter' onPointerDown={()=> setActiveTags(["Gamedev", "Unity", "Computer Graphics"])}>
+                    <div className={activeRole == "Game Developer" ? 'filter active' : 'filter'} onPointerDown={()=> {setActiveTags(["Gamedev", "Unity", "Computer Graphics"]); setActiveRole("Game Developer");}}>
                         <div className='label'>#Game Developer</div>
                     </div>
-                    <div className='filter' onPointerDown={()=> setActiveTags(["Web Development"])}>
+                    <div className={activeRole == "Web Developer" ? 'filter active' : 'filter'} onPointerDown={()=> {setActiveTags(["Web Development"]); setActiveRole("Web Developer");}}>
                         <div className='label'>#Web Developer</div>
                     </div>
-                    <div className='filter' onPointerDown={()=> setActiveTags(["Simulation", "Uni", "AI", "Computer Graphics"])}>
+                    <div className={activeRole == "Programmer" ? 'filter active' : 'filter'} onPointerDown={()=> {setActiveTags(["Simulation", "Uni", "AI", "Computer Graphics"]); setActiveRole("Programmer");}}>
                         <div className='label'>#Programmer</div>
                     </div>
-                    <div className='filter' onPointerDown={()=> setActiveTags(["Game Design", "Graphic Design"])}>
+                    <div className={activeRole == "Designer" ? 'filter active' : 'filter'} onPointerDown={()=> {setActiveTags(["Game Design", "Graphic Design"]); setActiveRole("Designer");}}>
                         <div className='label'>#Designer</div>
                     </div>
                 </div>
@@ -272,7 +340,7 @@ export function Content(){
                 <div className="content_container" id="#Papers">  
                     <Heading text="Papers & Blogs" style={{textAlign:"right"}} />
                     <div className='vertical_container'>
-                        <div className='text_middle'>
+                        <div className='text_right'>
                             
                                 {/* The beauty of being a developer is that you can make anything.
                                 The beauty of being a university student is that you can't make anything.
@@ -281,16 +349,19 @@ export function Content(){
                                 <p>The beauty of being a developer is that you can make anything.</p>
                                 <p>The two go in hand in hand. I love to write about what I make and I love to make what I write about.</p>
                                 <p>So here are some of my writings. Written by yours truly.</p>
-                        </div>
+                        
                         <div className="emphasis"> <a href="https://plasmarcstudios.co.uk/containcorp-blog/">Containcorp Development Blog</a></div>
                         <div className="emphasis"> <a href="/files/Dissertation1.pdf">Generating Artificial Societies Dissertation</a></div>
+                        <div className="emphasis"> <a href="/files/GJKAlgorithm.pdf">GJK Shape Intersection Algorithm Literature Review</a></div>
+                        <div className="emphasis"> <a href="/files/AIbasedMinorityReport.pdf">Are We Ready For An AI-based Minority Report?</a></div>
+                        </div>
                     </div>
 
 
                     <div style={{marginTop: 30}}  id="#Contact"></div>
                     <Heading text="Contact" style={{textAlign:"right"}}/>
                     <div className='vertical_container'>
-                        <div className='text_middle'>
+                        <div className='text_right'>
                             <p>Want to get in touch? </p>
                             <p>Send me an email at <a href="mailto: david.ogunlesi@yahoo.co.uk"/>david.ogunlesi@yahoo.co.uk</p>
                             <p>Or connect with me on <a href="https://www.linkedin.com/in/david-ogunlesi-b96b31182/">LinkedIn</a></p>

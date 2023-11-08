@@ -43,7 +43,6 @@
 
 .text_right{
     text-align: right;
-    padding: 0 0 0 30vw;
     width: 30vw;
 }
 .text_left{
@@ -58,7 +57,7 @@
 }
 .emphasis{
     font-weight: bold;
-    font-size: 25px;
+    font-size: 20px;
     text-decoration: underline;
     color: #58729E;
 }
@@ -249,16 +248,28 @@
     }
 }
 
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 1100px){
     .info {
         scale: 0.8;
     }
     .project_display > img{ 
-        width: 300px;
+        /*cover*/
+        position: absolute;
+        z-index: -1;
+        width: 200%;
+        object-fit: cover;
+        filter: blur(5px) brightness(0.5);  
+    }
+    .project_display{
+        height: 300px;
     }
 }
 
 @media screen and (max-width: 700px){
+    .info {
+        width: 100%;
+    }
+
     .horizontal_container{
         flex-direction: column;
     }

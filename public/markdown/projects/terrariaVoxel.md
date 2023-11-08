@@ -3,7 +3,7 @@ title: "Terraria Voxel Engine"
 image: "/images/terra.png"
 description: "Created a small voxel engine, and recreated the aesthetic of Terraria"
 tags: ["Unity"]
-date: "June 2022"
+date: "Feburary 2021"
 --?
 
 # Project thing
