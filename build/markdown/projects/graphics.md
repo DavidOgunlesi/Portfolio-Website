@@ -1,6 +1,6 @@
 --?
 title: "Python OpenGL 3D Engine"
-image: "/heart.jpg"
+image: "/images/graphics.png"
 description: "Developed a 3D engine using Python and PyOpenGL with features like ECS and LOD terrain."
 tags: ["Computer Graphics"]
 date: "December 2022"

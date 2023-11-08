@@ -1,6 +1,6 @@
 --?
 title: "Containcorp Game Landing Page"
-image: "/heart.jpg"
+image: "/images/cclandingpage.png"
 description: "Designed and Created Website for Containcorp Project"
 tags: ["Web Development"]
 date: "June 2022"

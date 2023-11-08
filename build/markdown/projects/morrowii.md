@@ -1,6 +1,6 @@
 --?
 title: "Morrowii"
-image: "/heart.jpg"
+image: "/images/morrowii.png"
 description: "Created a GPT powered discord bot"
 tags: ["AI"]
 date: "June 2022"
