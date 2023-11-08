@@ -105,10 +105,10 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #00cdd5;
+  background: #58729E;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #00cdd5;
+  background: #58729E;
 }

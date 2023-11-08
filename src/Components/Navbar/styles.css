@@ -4,11 +4,13 @@
 }
 .navbar{
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between;
     align-items: center;
     padding: 0 5rem;
     /* background-color: #061434; */
     color: white;
+    flex-wrap: wrap;
+    gap: 30px;
 }
 
 .navbar_text {
@@ -32,8 +34,12 @@ a:link, a:visited, a:hover, a:active{
 }
 
 /* media rule*/
-
-@media screen and (max-width: 768px){
+@media screen and (max-width: 1000px){
+    .navbar{
+        justify-content: flex-start;
+    }
+}
+@media screen and (max-width: 568px){
     .navbar{
         flex-direction: column;
         padding: 0 1rem;
