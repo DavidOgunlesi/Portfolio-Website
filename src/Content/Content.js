@@ -311,6 +311,28 @@ export function Content(){
                 }
                 
             </div>
+            <div className="content_container">  
+                <Heading text="Projects I Want to Make" style={{textAlign:"center"}}/>
+                <p>There is a backlog of projects that I want to make. Some of them are cool! So here's a list of them.</p>
+
+                <div className='vertical_container' >
+
+                    <ul  style={{textAlign: "left"}}>
+                        <li>A Webserial hosting Website called SerialBox</li>
+                        <li>A Wartime Cryptography Game with Deep Moral Choices</li>
+                        <li>A Graph Algorithm Visualisation Web App</li>
+                        <li>Internet Routing Visualisation Web App</li>
+                        <li>Rocket Engine Bell Simulator and EA Optimisation</li>
+                        <li>Javascript Mario Platformer</li>
+                        <li>Machine Learning Online Tool</li>
+                        <li>Boids Swarm using Three.js</li>
+                        <li>Doom Opengl C++ Recreation</li>
+                        <li>C++ Game Engine</li>
+                        <li>C++ Voxel Engine</li>
+                        <li>Dwarf Fortress inspired game about Tree-dwarfs</li>
+                    </ul>
+                </div>  
+            </div>
             
             <div className="content_double_container">
                 <div className="content_container" id="#About-me">  
