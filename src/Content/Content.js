@@ -290,15 +290,10 @@ export function Content(){
                 {activeTags.length == 0 &&
                     <div className='horizontal_container'>
                         <div className='text_left'>
-                            <p>I start a lot of projects. If every artist has a thousand bad drawings
-                                before they can draw a good one, then maybe I'm on track to hit gold.
-                                I'm not sure if that's true, but I'm sure that I have a lot of bad projects. 
-                                I'm also sure that I have a lot of good projects. Though many projects lie 
-                                somewhere in between; in the realm of the mediocre and the unfinished.
-
+                            <p>
+                            I embark on numerous projects, fueled by the belief that every creative journey leads to brilliance. Just as every artist refines their craft through a thousand sketches, I see each project as a step closer to striking gold. Amidst the vast array, there are undeniably the outstanding ones – projects that shine, making their mark in the realm of excellence. 
                             </p>
-                            <p>Let's stick to the good projects. </p>
-                            <p>This is supposed to be    portfolio afterall... {"(ಠ_ಠ)"}</p>
+                            <p>Let's focus on the gems; after all, this is meant to showcase the best in my portfolio... (ಠ_ಠ) </p>
                         </div>
                         <AsciiCarousel images={[
                         {caption: "Heart", imageURL: '/heart.jpg'}, 
@@ -339,11 +334,8 @@ export function Content(){
                     <Heading text="About me" style={{textAlign:"left"}}/>
                     <div className='vertical_container'>
                         <div className='text_middle' style={{textAlign: "left"}}>
-                            <p>Hi I'm David, if you didn't know. Welcome to my about-me where we talk
-                                about me. How exciting. I'm a developer, a designer, a writer, a reader, a thinker, a
-                                dreamer, a doer, a procrastinator, a procrastinator, a procrastinator, a
-                                procrastinator, a procrastinator, a procrastinator, a procrastinator, a
-                                procrastinator, a procrastinator, a procrastinator, a procrastinator, a...
+                            <p>
+                            Hey, I'm David – in case you missed the memo. Step into my about-me zone, where the spotlight's on yours truly. Brace yourself for the thrill of getting to know... well, me. I wear many hats – developer, designer, writer, avid reader, perpetual thinker, eternal dreamer, and a doer when I'm not honing my craft with strategic pauses for thoughtful reflection. Call it a masterful rhythm, if you will, in the symphony of productivity.
                             </p>
                             <div className='hr dashed'/>
                             <p>
@@ -352,7 +344,7 @@ export function Content(){
                             </p>
                             <p>
                             I'm not a programmer who
-                            creates art. I'm an artist who uses programming as a tool to create art.
+                            creates art. I'm an artist who uses programming as a tool to create art. Whether that art is software, music, or writing, I'm always trying to create something beautiful.
                             </p>
                             <p>But I'm still a goddamn good programmer.</p>
                             <div className='hr dashed'/>
@@ -384,7 +376,7 @@ export function Content(){
                                 <li>Gaming</li>
                                 <li>Anime</li>
                                 <li>Making awesome portfolios</li>
-                                <li>Sleeping</li>
+                                {/* <li>Sleeping</li> */}
                             </ul>
                         </div>
                     </div>
@@ -416,7 +408,7 @@ export function Content(){
                         <div className='text_right'>
                             <p>Want to get in touch? </p>
                             <p>Send me an email at <a href="mailto: david.ogunlesi@yahoo.co.uk"/>david.ogunlesi@yahoo.co.uk</p>
-                            <p>Or connect with me on <a href="https://www.linkedin.com/in/david-ogunlesi-b96b31182/">LinkedIn</a></p>
+                            <p>Or connect with me on <div className="emphasis"><a href="https://www.linkedin.com/in/david-ogunlesi-b96b31182/">LinkedIn</a></div></p>
                         </div>
                     </div>
                 </div>
