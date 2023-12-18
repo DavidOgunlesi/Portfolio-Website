@@ -9,6 +9,7 @@ export function Content(){
     const [files, setFiles] = useState([]);
     const [activeTags, setActiveTags] = useState([]);
     const [activeRole, setActiveRole] = useState("Anything");
+    const [currReadMore, setCurrReadMore] = useState(null);
 
     const addRemoveTag = (tag) => {
         if (activeTags.includes(tag)) {
@@ -73,6 +74,11 @@ export function Content(){
         }
         
         return final;
+      };
+
+      const getContent = (text) => {
+        text = text.split('--?');
+        return text[text.length-1];
       };
 
       const createTags = () => {
@@ -227,8 +233,9 @@ export function Content(){
                             <div className='description'>{desc}</div>
                             <div className='date'>{date}</div>
                             <div className='horizontal_container'>{createLanguageTags(file)}</div>
+                            <div className='readmore' onPointerDown={() => setCurrReadMore(file)}>Read More</div>
                         </div>
-                        <img src={image}/>
+                        <div className='img-holder'><img src={image}/></div>
                         
                     </div>
                 );
@@ -236,6 +243,41 @@ export function Content(){
         });
         return (<div className='vertical_container' style={{gap: 50}}>{elements}</div>);
       }
+
+      const displayReadMoreWindow = () => {
+
+        if (currReadMore == null) return;
+
+        var file = currReadMore;
+        var title = getProperty(file, 'title');
+        var tags = JSON.parse(getProperty(file, 'tags', false));
+        var desc = getProperty(file, 'description');
+        var date = getProperty(file, 'date');
+        var image = getProperty(file, 'image');
+        var content = getContent(file);
+        image = image.replaceAll('"', '');
+
+        return (
+            <div className='readmoreWindow'>
+                <div className='close' onPointerDown={() => setCurrReadMore(null)}>Close</div>
+                <div className='project_display' key={title}>
+                    <div className='info'>
+                        <div className='project_title'>{title}</div>
+                        <div className='tags'>{tags.join(", ")}</div>
+                        <div className='description'>{desc}</div>
+                        <div className='date'>{date}</div>
+                        <div className='horizontal_container'>{createLanguageTags(file)}</div>
+                        
+                        <Markdown>{content}</Markdown>
+                    </div>
+                    <div className='img-holder'><img src={image}/></div>
+                </div>
+                {/* <div className='project_content' key={title}>
+                    {content}
+                </div> */}
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -261,6 +303,46 @@ export function Content(){
                 </div>
             </div> */}
             {/* <Markdown>{file}</Markdown> */}
+            <div className="content_container" id="#Hire">  
+                <Heading text="10 reasons Why should you hire me" style={{textAlign:"left"}}/>
+                <div className='filter_container left wrap'>
+                    <div className='filter active'>
+                        <div className='label'>#1 I Write Code Every Single Day</div>
+                    </div>
+                    <div className='filter active'>
+                        <div className='label'>#2 I am a Dedicated Game Developer with Graphic Design Skills</div>
+                    </div>
+                    <div className='filter active'>
+                    <div className='label'>#3 I am Crafting a Commercial-Ready Game at the Scale of RimWorld</div>
+                    </div>
+                    <div className='filter active'>
+                        <div className='label'>#4 I have Experience Architecting Large Codebases</div>
+                    </div>
+                    <div className='filter active'>
+                        <div className='label'>#5 I have Proven Track Record of Meeting Deadlines</div>
+                    </div>
+                    <div className='filter active'>
+                        <div className='label'>#6 I have Strong Analytical and Debugging Skills</div>
+                    </div>
+                    <div className='filter active'>
+                        <div className='label'>#7 Well-versed in Software Architecture and Design Patterns</div>
+                    </div>
+                    <div className='filter active'>
+                        <div className='label'>#8 I am not Afraid of Leaving My Comfort Zone</div>
+                    </div>
+                    <div className='filter active'>
+                        <div className='label'>#9 I have Experience Leading Development Teams</div>
+                    </div>
+                    <div className='filter active'>
+                        <div className='label'>#10 I have Strong Artistic Visions, and Actually Attempt to Execute Them</div>
+                    </div>
+                    <div className='filter active'>
+                        <div className='label'>#11  I have Excellent Communication Skills for Effective Team Collaboration</div>
+                    </div>
+                </div>
+                <Heading text="Did I say 10, I meant 11!" style={{textAlign:"left"}} hideRules/>
+                
+            </div>
             <div className="content_container" id="#Projects">  
                 <Heading text="What do you want me to be?" style={{textAlign:"left"}}/>
                 
@@ -291,9 +373,11 @@ export function Content(){
                     <div className='horizontal_container'>
                         <div className='text_left'>
                             <p>
-                            I embark on numerous projects, fueled by the belief that every creative journey leads to brilliance. Just as every artist refines their craft through a thousand sketches, I see each project as a step closer to striking gold. Amidst the vast array, there are undeniably the outstanding ones – projects that shine, making their mark in the realm of excellence. 
+                            I start a lot of projects. If every artist has a thousand bad drawings before they can draw a good one, then maybe I'm on track to hit gold. I'm not sure if that's true, but I'm sure that I have a lot of bad projects. I'm also sure that I have a lot of good projects. Though understandably many of these lie somewhere in between; in the realm of the mediocre and the unfinished.
                             </p>
-                            <p>Let's focus on the gems; after all, this is meant to showcase the best in my portfolio... (ಠ_ಠ) </p>
+                            <p> Let's stick to the good projects.</p>
+
+                            <p> This is supposed to be portfolio afterall... (ಠ_ಠ)</p>
                         </div>
                         <AsciiCarousel images={[
                         {caption: "Heart", imageURL: '/heart.jpg'}, 
@@ -306,6 +390,32 @@ export function Content(){
                 }
                 
             </div>
+            
+            {displayReadMoreWindow()}
+            
+            <div className="content_container" id="#Languages">  
+                <Heading text="My Strongest Languages & Skills" style={{textAlign:"left"}}/>
+                
+                <div className='filter_container left wrap'>
+                    <div className='filter active'>
+                        <div className='label'>C# (4 years)</div>
+                    </div>
+                    <div className='filter active'>
+                        <div className='label'>UnityEngine (4 years)</div>
+                    </div>
+                    <div className='filter active'>
+                        <div className='label'>Javascript (5 years)</div>
+                    </div>
+                    <div className='filter active'>
+                        <div className='label'>Python (6 years)</div>
+                    </div>
+                    <div className='filter active'>
+                        <div className='label'>C++ (Just Started)</div>
+                    </div>
+                    
+                </div>
+            </div>
+
             <div className="content_container">  
                 <Heading text="Projects I Want to Make" style={{textAlign:"center"}}/>
                 <p>There is a backlog of projects that I want to make. Some of them are cool! So here's a list of them.</p>
@@ -335,7 +445,7 @@ export function Content(){
                     <div className='vertical_container'>
                         <div className='text_middle' style={{textAlign: "left"}}>
                             <p>
-                            Hey, I'm David – in case you missed the memo. Step into my about-me zone, where the spotlight's on yours truly. Brace yourself for the thrill of getting to know... well, me. I wear many hats – developer, designer, writer, avid reader, perpetual thinker, eternal dreamer, and a doer when I'm not honing my craft with strategic pauses for thoughtful reflection. Call it a masterful rhythm, if you will, in the symphony of productivity.
+                            Hey, I'm David – in case you missed the memo. Step into my about-me zone, where we talk about me. How exciting. I wear many hats – developer, designer, writer, avid reader, perpetual thinker, eternal dreamer, and a doer when I'm not not doing that. Which is never. I'm always doing something.
                             </p>
                             <div className='hr dashed'/>
                             <p>

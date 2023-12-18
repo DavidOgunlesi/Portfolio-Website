@@ -69,9 +69,9 @@
   }
 }
 
-@media screen and (max-width: 1200px){
+@media screen and (min-width: 1200px){
   .pfp{
-    top: 200px;
+    top: 250px;
   }
 }
 
