@@ -505,6 +505,8 @@ export function Content(){
                                 <p>So here are some of my writings. Written by yours truly.</p>
                         
                         <div className="emphasis"> <a href="https://plasmarcstudios.co.uk/containcorp-blog/">Containcorp Development Blog</a></div>
+                        <div className="emphasis"> <a href="/files/DissY4Review.pdf">Presenting a Novel Transformer Architecture for GPT-driven NPCs to
+Mimic Human-Likeness and Autonomy in a Video Game Context</a></div>
                         <div className="emphasis"> <a href="/files/Dissertation1.pdf">Generating Artificial Societies Dissertation</a></div>
                         <div className="emphasis"> <a href="/files/GJKAlgorithm.pdf">GJK Shape Intersection Algorithm Literature Review</a></div>
                         <div className="emphasis"> <a href="/files/AIbasedMinorityReport.pdf">Are We Ready For An AI-based Minority Report?</a></div>
